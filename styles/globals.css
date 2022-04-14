@@ -3,12 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+html {}
+
+* {
+  font-family: "Inter" !important;
+}
+
 body {
-  padding: 0;
+  padding: 1rem;
+  background-color: rgb(254 243 199) !important;
   margin: 0;
   font-family: "Inter" !important;
-  background-color: rgb(254 243 199);
   display: flex;
   align-items: center;
   justify-content: center;
