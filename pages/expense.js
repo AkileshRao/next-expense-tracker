@@ -1,8 +1,7 @@
 import { Box, Button, Flex, Heading, Input, Textarea, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BsArrowLeft } from 'react-icons/bs'
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 
 export default function Expense() {
     const router = useRouter()
@@ -64,3 +63,4 @@ export default function Expense() {
         </Box>
     )
 }
+

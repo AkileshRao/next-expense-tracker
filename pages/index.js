@@ -1,10 +1,17 @@
-import { Menu, MenuButton, MenuList, MenuItem, Button, Flex } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, MenuItem, Button, Flex, Box, Heading, Text } from '@chakra-ui/react';
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai'
+import { useEffect } from 'react';
 
-export default function Dashboard() {
+import prisma from '../lib/prisma'
+
+export default function Dashboard({ expenses, incomes }) {
   const router = useRouter()
+
+  useEffect(() => {
+    console.log(expenses, incomes);
+  }, [expenses, incomes])
   return (
     <div >
       <Head>
@@ -28,8 +35,18 @@ export default function Dashboard() {
         </Flex>
       </Flex>
 
-      <Flex>
-
+      <Flex direction={'column'} bgColor={'white'} mt={'4'} rounded={'md'} p={3}>
+        {
+          expenses.map(exp => (
+            <Box key={exp.id}>
+              <Flex mb={2}>
+                <Text fontSize={'xs'}>{exp.date.slice(0, 10)}</Text>
+              </Flex>
+              <Heading size={'md'} color={'red.500'}>-{exp.amount}</Heading>
+              <Text >{exp.description}</Text>
+            </Box>
+          ))
+        }
       </Flex>
 
       <Menu>
@@ -42,6 +59,18 @@ export default function Dashboard() {
         </MenuList>
 
       </Menu>
-    </div>
+    </div >
   )
 }
+
+export async function getServerSideProps() {
+  const expenses = await prisma.expense.findMany();
+  const incomes = await prisma.income.findMany()
+
+  return {
+    props: {
+      expenses: JSON.parse(JSON.stringify(expenses)),
+      incomes: JSON.parse(JSON.stringify(incomes))
+    }
+  }
+};
