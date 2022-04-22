@@ -8,16 +8,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Expense {
+model Item {
   id        String     @default(cuid()) @id
   date      DateTime
   description   String?
   amount  Int
-}
-
-model Income {
-  id        String     @default(cuid()) @id
-  date      DateTime
-  description   String?
-  amount  Int
+  mode String
 }

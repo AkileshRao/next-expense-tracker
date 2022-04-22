@@ -28,3 +28,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.transaction-item:hover {
+  background: rgb(243, 243, 243);
+  cursor: pointer;
+}
